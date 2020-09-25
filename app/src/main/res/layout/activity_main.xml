@@ -12,7 +12,6 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,7 +21,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/lbl_fs_start"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnStopService"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,9 +31,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/lbl_fs_stop"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnStartService"
         app:layout_constraintTop_toBottomOf="@+id/edtName" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listTimeStamps"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnStartService" />
 </androidx.constraintlayout.widget.ConstraintLayout>

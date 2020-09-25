@@ -1,17 +1,23 @@
 package com.hardikmahant.recurringtask.background
 
 import android.app.PendingIntent
-import android.app.Service
 import android.content.Intent
-import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.lifecycle.LifecycleService
 import com.hardikmahant.recurringtask.R
 import com.hardikmahant.recurringtask.RecurringTaskApplication.Companion.CHANNEL_ID
+import com.hardikmahant.recurringtask.repository.LogRepository
 import com.hardikmahant.recurringtask.ui.MainActivity
 import com.hardikmahant.recurringtask.util.Util
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class TaskForegroundService : Service() {
+@AndroidEntryPoint
+class TaskForegroundService : LifecycleService() {
+
+    @Inject
+    lateinit var repository: LogRepository
 
     companion object {
         private const val TAG = "SampleFService"
@@ -23,6 +29,7 @@ class TaskForegroundService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        super.onStartCommand(intent, flags, startId)
         Log.i(TAG, "onStartCommand: ")
         val input = intent?.getStringExtra("input")
 
@@ -39,12 +46,12 @@ class TaskForegroundService : Service() {
             .build()
         startForeground(1, notification)
         Util.scheduleJob(this)
+        repository.getAllTimeLogs().observe(
+            this, {
+                Log.i(TAG, "onStartCommand: $it")
+            }
+        )
         return START_NOT_STICKY
-    }
-
-    override fun onBind(intent: Intent?): IBinder? {
-        Log.i(TAG, "onBind: ")
-        return null
     }
 
     override fun onDestroy() {
