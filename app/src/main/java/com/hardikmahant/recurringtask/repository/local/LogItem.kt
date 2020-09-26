@@ -8,5 +8,6 @@ data class LogItem(
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
     val timeStamp: String,
-    val serviceTitle: String
+    val serviceTitle: String,
+    val startedAt: String = ""
 )

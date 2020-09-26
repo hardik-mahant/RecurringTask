@@ -2,6 +2,7 @@ package com.hardikmahant.recurringtask.di
 
 import android.content.Context
 import androidx.room.Room
+import androidx.work.WorkerFactory
 import com.hardikmahant.recurringtask.repository.LogRepository
 import com.hardikmahant.recurringtask.repository.local.LogDB
 import com.hardikmahant.recurringtask.repository.local.LogDao
@@ -36,5 +37,11 @@ object AppModule {
     fun provideLogRepository(
         logDao: LogDao
     ) = LogRepository(logDao)
+
+    @Provides
+    @Singleton
+    fun workerFactory(repository: LogRepository): WorkerFactory {
+        return HiltWorkFactory(repository)
+    }
 
 }

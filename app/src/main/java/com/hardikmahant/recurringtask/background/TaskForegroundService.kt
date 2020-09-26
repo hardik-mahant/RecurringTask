@@ -1,7 +1,9 @@
 package com.hardikmahant.recurringtask.background
 
 import android.app.PendingIntent
+import android.app.Service
 import android.content.Intent
+import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
@@ -14,10 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class TaskForegroundService : LifecycleService() {
-
-    @Inject
-    lateinit var repository: LogRepository
+class TaskForegroundService : Service() {
 
     companion object {
         private const val TAG = "SampleFService"
@@ -46,16 +45,15 @@ class TaskForegroundService : LifecycleService() {
             .build()
         startForeground(1, notification)
         Util.scheduleJob(this)
-        repository.getAllTimeLogs().observe(
-            this, {
-                Log.i(TAG, "onStartCommand: $it")
-            }
-        )
-        return START_NOT_STICKY
+        return START_STICKY
     }
 
     override fun onDestroy() {
         super.onDestroy()
         Log.i(TAG, "onDestroy: ")
+    }
+
+    override fun onBind(intent: Intent?): IBinder? {
+        return null;
     }
 }

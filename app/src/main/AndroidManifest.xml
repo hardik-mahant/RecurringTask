@@ -26,6 +26,12 @@
         <service
             android:name=".background.TaskJobService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <provider
+            android:name="androidx.work.impl.WorkManagerInitializer"
+            android:authorities="com.hardikmahant.recurringtask.workmanager-init"
+            android:enabled="false"
+            android:exported="false" />
     </application>
 
 </manifest>

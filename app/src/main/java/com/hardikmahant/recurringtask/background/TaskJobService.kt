@@ -41,7 +41,7 @@ class TaskJobService : JobService() {
             if (isJobCancelled) return@Thread
             Log.i(TAG, "Working...")
             addRecord()
-            jobFinished(params, false)
+            jobFinished(params, true)
         }.start()
     }
 
@@ -53,6 +53,7 @@ class TaskJobService : JobService() {
                     serviceTitle = "Title"
                 )
             )
+            return@launch
         }
     }
 
